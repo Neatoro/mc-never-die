@@ -2,3 +2,8 @@ main: de.mschramm.neverdie.NeverDiePlugin
 name: NeverDiePlugin
 version: 0.1
 api-version: 1.16
+
+commands:
+  lifes:
+    description: Get your remaining lifes
+    usage: /<command>
