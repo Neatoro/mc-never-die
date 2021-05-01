@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import de.mschramm.neverdie.repository.LifeRepository;
+import de.mschramm.neverdie.repositories.LifeRepository;
 
 public class InitPlayer implements Listener {
 

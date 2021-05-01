@@ -8,6 +8,24 @@ version '1.0.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
+task fatJar(type: Jar) {
+  manifest.from jar.manifest
+  classifier = 'all'
+  from {
+    configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+  } {
+    exclude "META-INF/*.SF"
+    exclude "META-INF/*.DSA"
+    exclude "META-INF/*.RSA"
+    duplicatesStrategy "exclude"
+  }
+  with jar
+}
+
+artifacts {
+    archives fatJar
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
@@ -15,10 +33,11 @@ repositories {
 
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.34.0'
 }
 
 tasks.register('copyJarToPlugins', Copy) {
-    from jar
+    from fatJar
     into './serverdata/plugins'
 }
 

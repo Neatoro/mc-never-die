@@ -5,7 +5,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import de.mschramm.neverdie.repository.LifeRepository;
+import de.mschramm.neverdie.repositories.LifeRepository;
 
 public class LifeCommand implements CommandExecutor {
 
