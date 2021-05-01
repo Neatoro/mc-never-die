@@ -25,7 +25,7 @@ public class Displays implements Listener {
                 color = ChatColor.YELLOW;
                 break;
             case 3:
-                color = ChatColor.AQUA;
+                color = ChatColor.GREEN;
                 break;
             default:
                 color = ChatColor.WHITE;
