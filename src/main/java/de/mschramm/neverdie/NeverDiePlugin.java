@@ -7,6 +7,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import de.mschramm.neverdie.commands.LifeCommand;
 import de.mschramm.neverdie.commands.StartCommand;
 import de.mschramm.neverdie.database.SchemaProvider;
+import de.mschramm.neverdie.events.Damage;
 import de.mschramm.neverdie.events.Deaths;
 import de.mschramm.neverdie.events.Displays;
 import de.mschramm.neverdie.events.InitPlayer;
@@ -36,6 +37,7 @@ public class NeverDiePlugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new Deaths(), this);
         this.getServer().getPluginManager().registerEvents(new Displays(), this);
         this.getServer().getPluginManager().registerEvents(new Spectator(), this);
+        this.getServer().getPluginManager().registerEvents(new Damage(), this);
     }
 
 };
