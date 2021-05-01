@@ -7,3 +7,6 @@ commands:
   lifes:
     description: Get your remaining lifes
     usage: /<command>
+  startneverdie:
+    description: Start the Never Die Game
+    usage: /<command>
