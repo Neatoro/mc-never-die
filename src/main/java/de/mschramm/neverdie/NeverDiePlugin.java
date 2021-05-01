@@ -9,6 +9,7 @@ import de.mschramm.neverdie.database.SchemaProvider;
 import de.mschramm.neverdie.events.Deaths;
 import de.mschramm.neverdie.events.Displays;
 import de.mschramm.neverdie.events.InitPlayer;
+import de.mschramm.neverdie.events.Spectator;
 
 public class NeverDiePlugin extends JavaPlugin {
 
@@ -28,6 +29,7 @@ public class NeverDiePlugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new InitPlayer(), this);
         this.getServer().getPluginManager().registerEvents(new Deaths(), this);
         this.getServer().getPluginManager().registerEvents(new Displays(), this);
+        this.getServer().getPluginManager().registerEvents(new Spectator(), this);
     }
 
 };
