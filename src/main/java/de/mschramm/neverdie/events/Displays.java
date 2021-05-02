@@ -4,6 +4,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import de.mschramm.neverdie.entities.PlayerEntity;
 import de.mschramm.neverdie.events.custom.PlayerLifesUpdatedEvent;
@@ -16,28 +18,28 @@ public class Displays implements Listener {
         PlayerEntity entity = event.getEntity();
 
         int lifes = entity.getLifes();
-        ChatColor color;
-        switch (lifes) {
-            case 1:
-                color = ChatColor.RED;
-                break;
-            case 2:
-                color = ChatColor.YELLOW;
-                break;
-            case 3:
-                color = ChatColor.GREEN;
-                break;
-            default:
-                color = ChatColor.WHITE;
-                break;
+        if (lifes > 0) {
+            this.registerTeams(player.getScoreboard());
+            player.getScoreboard().getTeam("" + lifes).addPlayer(player);
+        } else if (player.getScoreboard().getPlayerTeam(player) != null) {
+            player.getScoreboard().getPlayerTeam(player).removePlayer(player);
         }
-
-        this.updatePlayerDisplays(player, color);
     }
 
-    private void updatePlayerDisplays(Player player, ChatColor color) {
-        player.setDisplayName(color + player.getName() + ChatColor.WHITE);
-        player.setPlayerListName(color + player.getName() + ChatColor.WHITE);
+    private void registerTeams(Scoreboard scoreboard) {
+        this.registerTeam(scoreboard, "1", ChatColor.RED);
+        this.registerTeam(scoreboard, "2", ChatColor.YELLOW);
+        this.registerTeam(scoreboard, "3", ChatColor.GREEN);
+    }
+
+    private Team registerTeam(Scoreboard scoreboard, String name, ChatColor color) {
+        Team team = scoreboard.getTeam(name);
+        if (team == null) {
+            team = scoreboard.registerNewTeam(name);
+        }
+        team.setColor(color);
+        team.setAllowFriendlyFire(true);
+        return team;
     }
 
 }
