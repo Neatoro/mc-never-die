@@ -39,6 +39,20 @@ public class LifeRepository {
         return -1;
     }
 
+    public void resetPlayerLifes(Player player) {
+        PlayerEntity entity = this.getPlayerEntity(player);
+        if (entity != null) {
+            entity.setLifes(3);
+            try {
+                this.entityManager.save(entity);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            PlayerLifesUpdatedEvent updatedEvent = new PlayerLifesUpdatedEvent(player, entity);
+            Bukkit.getPluginManager().callEvent(updatedEvent);
+        }
+    }
+
     public void reduceLifeFromPlayer(Player player) {
         try {
             PlayerEntity entity = this.getPlayerEntity(player);

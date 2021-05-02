@@ -1,6 +1,7 @@
 package de.mschramm.neverdie.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
@@ -9,6 +10,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import de.mschramm.neverdie.repositories.LifeRepository;
 
 public class StartCommand implements CommandExecutor {
 
@@ -25,6 +28,12 @@ public class StartCommand implements CommandExecutor {
         border.setCenter(spawn);
 
         for (Player player : Bukkit.getServer().getOnlinePlayers()) {
+            player.setGameMode(GameMode.SURVIVAL);
+            player.setHealth(20);
+            player.setFoodLevel(20);
+            player.getInventory().clear();
+            LifeRepository.getInstance().resetPlayerLifes(player);
+
             player.teleport(spawn);
         }
 
