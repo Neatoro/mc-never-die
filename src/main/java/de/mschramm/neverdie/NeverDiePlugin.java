@@ -2,6 +2,7 @@ package de.mschramm.neverdie;
 
 import java.sql.SQLException;
 
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.mschramm.neverdie.commands.LifeCommand;
@@ -25,6 +26,10 @@ public class NeverDiePlugin extends JavaPlugin {
 
         this.registerCommands();
         this.registerEventHandlers();
+
+        for (Player player : this.getServer().getOnlinePlayers()) {
+            InitPlayer.initializePlayer(player);
+        }
     }
 
     private void registerCommands() {

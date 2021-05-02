@@ -17,6 +17,10 @@ public class InitPlayer implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        InitPlayer.initializePlayer(player);
+    }
+
+    public static void initializePlayer(Player player) {
         PlayerRepository playerRepository = PlayerRepository.getInstance();
 
         if (!playerRepository.isPlayerRegistered(player)) {
