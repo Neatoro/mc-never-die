@@ -1,7 +1,10 @@
 package de.mschramm.neverdie;
 
+import java.io.File;
 import java.sql.SQLException;
+import java.util.logging.Level;
 
+import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -13,11 +16,16 @@ import de.mschramm.neverdie.events.Deaths;
 import de.mschramm.neverdie.events.Displays;
 import de.mschramm.neverdie.events.InitPlayer;
 import de.mschramm.neverdie.events.Spectator;
-
 public class NeverDiePlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        File gameWorld = new File("./game");
+        if (gameWorld.exists()) {
+            this.getLogger().log(Level.INFO, "Found game world, loading...");
+            new WorldCreator("game").createWorld();
+        }
+
         try {
             SchemaProvider.initializeSchema();
         } catch (SQLException e) {
