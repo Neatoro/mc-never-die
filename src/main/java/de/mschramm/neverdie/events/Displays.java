@@ -20,9 +20,9 @@ public class Displays implements Listener {
         int lifes = entity.getLifes();
         if (lifes > 0) {
             this.registerTeams(player.getScoreboard());
-            player.getScoreboard().getTeam("" + lifes).addPlayer(player);
-        } else if (player.getScoreboard().getPlayerTeam(player) != null) {
-            player.getScoreboard().getPlayerTeam(player).removePlayer(player);
+            player.getScoreboard().getTeam("" + lifes).addEntry(player.getName());
+        } else if (player.getScoreboard().getEntryTeam(player.getName()) != null) {
+            player.getScoreboard().getEntryTeam(player.getName()).removeEntry(player.getName());
         }
     }
 
