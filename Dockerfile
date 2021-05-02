@@ -1,6 +1,7 @@
 FROM alpine
 
-RUN apk add --no-cache openjdk11 curl git
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN apk update && apk add --no-cache openjdk16 curl git
 
 ARG MC_VERSION=1.16.5
 ENV MC_VERSION=${MC_VERSION}

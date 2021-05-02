@@ -5,9 +5,6 @@ plugins {
 group 'de.mschramm.neverdie'
 version '1.0.0'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
-
 task fatJar(type: Jar) {
   manifest.from jar.manifest
   classifier = 'all'
