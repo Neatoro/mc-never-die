@@ -12,6 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import de.mschramm.neverdie.repositories.LifeRepository;
+import de.mschramm.neverdie.timer.Timer;
 
 public class StartCommand implements CommandExecutor {
 
@@ -38,6 +39,9 @@ public class StartCommand implements CommandExecutor {
         }
 
         Bukkit.getServer().dispatchCommand(sender, "spreadplayers 0 0 200 300 false @a");
+
+        Timer timer = new Timer();
+        timer.start();
 
         return true;
     }
