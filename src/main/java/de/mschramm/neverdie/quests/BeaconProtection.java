@@ -8,6 +8,7 @@ import org.bukkit.event.block.BlockCanBuildEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class BeaconProtection implements Listener {
 
@@ -49,6 +50,13 @@ public class BeaconProtection implements Listener {
             if (QuestManager.getInstance().isPartOfBeacon(block.getLocation())) {
                 event.setCancelled(true);
             }
+        }
+    }
+
+    @EventHandler
+    public void onInteractWithBeacon(PlayerInteractEvent event) {
+        if (event.getClickedBlock() != null && QuestManager.getInstance().isBeacon(event.getClickedBlock().getLocation())) {
+            event.setCancelled(true);
         }
     }
 }

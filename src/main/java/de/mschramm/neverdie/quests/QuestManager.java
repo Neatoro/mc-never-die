@@ -8,6 +8,8 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import de.mschramm.neverdie.NeverDiePlugin;
@@ -17,6 +19,7 @@ public class QuestManager {
     private static QuestManager instance;
 
     private Location questLocation;
+    private LivingEntity bob;
 
     private QuestManager() {
         Bukkit.getServer().getPluginManager().registerEvents(
@@ -53,6 +56,13 @@ public class QuestManager {
             this.getHighestBlock() + 2
         );
         this.buildBeacon();
+        this.bob = (LivingEntity) world.spawnEntity(
+            this.questLocation.clone().add(0, 0, 1),
+            EntityType.VILLAGER
+        );
+        this.bob.setAI(false);
+        this.bob.setCustomName("Bob");
+        this.bob.setInvulnerable(true);
 
         Bukkit.getServer().broadcastMessage(ChatColor.AQUA + "New Quest! Press Tab for more information!");
     }
@@ -87,6 +97,7 @@ public class QuestManager {
             location.getBlock().setType(Material.AIR);
         }
         this.questLocation.getBlock().setType(Material.AIR);
+        this.bob.remove();
     }
 
     private int getHighestBlock() {
@@ -127,6 +138,10 @@ public class QuestManager {
 
     public boolean isPartOfBeacon(Location location) {
         return location.distanceSquared(this.questLocation) <= 3;
+    }
+
+    public boolean isBeacon(Location location) {
+        return location.equals(questLocation);
     }
 
 }
