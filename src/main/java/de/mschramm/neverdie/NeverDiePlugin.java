@@ -17,6 +17,7 @@ import de.mschramm.neverdie.events.Displays;
 import de.mschramm.neverdie.events.InitPlayer;
 import de.mschramm.neverdie.events.Spectator;
 import de.mschramm.neverdie.quests.QuestManager;
+
 public class NeverDiePlugin extends JavaPlugin {
 
     @Override
