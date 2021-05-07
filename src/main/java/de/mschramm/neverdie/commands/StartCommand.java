@@ -11,6 +11,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import de.mschramm.neverdie.quests.QuestManager;
 import de.mschramm.neverdie.repositories.LifeRepository;
 import de.mschramm.neverdie.timer.Timer;
 
@@ -43,6 +44,8 @@ public class StartCommand implements CommandExecutor {
 
         Timer timer = new Timer();
         timer.start();
+
+        QuestManager.getInstance();
 
         return true;
     }

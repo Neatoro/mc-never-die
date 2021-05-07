@@ -17,6 +17,7 @@ import de.mschramm.neverdie.events.Displays;
 import de.mschramm.neverdie.events.InitPlayer;
 import de.mschramm.neverdie.events.Spectator;
 import de.mschramm.neverdie.quests.QuestManager;
+import de.mschramm.neverdie.quests.states.NoQuestState;
 
 public class NeverDiePlugin extends JavaPlugin {
 
@@ -26,7 +27,9 @@ public class NeverDiePlugin extends JavaPlugin {
         if (gameWorld.exists()) {
             this.getLogger().log(Level.INFO, "Found game world, loading...");
             new WorldCreator("game").createWorld();
-            QuestManager.getInstance().setupQuest();
+            QuestManager.getInstance()
+                .getState()
+                .updateQuestState(new NoQuestState());
         }
 
         try {
@@ -56,9 +59,8 @@ public class NeverDiePlugin extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new Damage(), this);
     }
 
-    @Override
-    public void onDisable() {
-        QuestManager.getInstance().endQuest();
+    public static JavaPlugin getPlugin() {
+        return JavaPlugin.getPlugin(NeverDiePlugin.class);
     }
 
 };

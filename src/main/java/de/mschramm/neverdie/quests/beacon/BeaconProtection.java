@@ -1,4 +1,4 @@
-package de.mschramm.neverdie.quests;
+package de.mschramm.neverdie.quests.beacon;
 
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -12,9 +12,15 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 public class BeaconProtection implements Listener {
 
+    private BeaconConstruct construct;
+
+    public BeaconProtection(BeaconConstruct construct) {
+        this.construct = construct;
+    }
+
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
-        if (QuestManager.getInstance().isPartOfBeacon(event.getBlock().getLocation())) {
+        if (construct.isPartOfBeacon(event.getBlock().getLocation())) {
             event.setCancelled(true);
         }
     }
@@ -22,7 +28,7 @@ public class BeaconProtection implements Listener {
     @EventHandler
     public void onBlockExplodes(EntityExplodeEvent event) {
         for (Block block : event.blockList()) {
-            if (QuestManager.getInstance().isPartOfBeacon(block.getLocation())) {
+            if (construct.isPartOfBeacon(block.getLocation())) {
                 event.setCancelled(true);
             }
         }
@@ -30,7 +36,7 @@ public class BeaconProtection implements Listener {
 
     @EventHandler
     public void onBlockPlace(BlockCanBuildEvent event) {
-        if (QuestManager.getInstance().isPartOfBeacon(event.getBlock().getLocation())) {
+        if (construct.isPartOfBeacon(event.getBlock().getLocation())) {
             event.setBuildable(false);
         }
     }
@@ -38,7 +44,7 @@ public class BeaconProtection implements Listener {
     @EventHandler
     public void onBlockPistonExtend(BlockPistonExtendEvent event) {
         for (Block block : event.getBlocks()) {
-            if (QuestManager.getInstance().isPartOfBeacon(block.getLocation())) {
+            if (construct.isPartOfBeacon(block.getLocation())) {
                 event.setCancelled(true);
             }
         }
@@ -47,7 +53,7 @@ public class BeaconProtection implements Listener {
     @EventHandler
     public void onBlockPistonRetract(BlockPistonRetractEvent event) {
         for (Block block : event.getBlocks()) {
-            if (QuestManager.getInstance().isPartOfBeacon(block.getLocation())) {
+            if (construct.isPartOfBeacon(block.getLocation())) {
                 event.setCancelled(true);
             }
         }
@@ -55,7 +61,7 @@ public class BeaconProtection implements Listener {
 
     @EventHandler
     public void onInteractWithBeacon(PlayerInteractEvent event) {
-        if (event.getClickedBlock() != null && QuestManager.getInstance().isBeacon(event.getClickedBlock().getLocation())) {
+        if (event.getClickedBlock() != null && construct.isBeacon(event.getClickedBlock().getLocation())) {
             event.setCancelled(true);
         }
     }

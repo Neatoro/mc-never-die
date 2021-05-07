@@ -9,7 +9,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import de.mschramm.neverdie.entities.PlayerEntity;
 import de.mschramm.neverdie.events.custom.PlayerLifesUpdatedEvent;
-import de.mschramm.neverdie.quests.QuestManager;
 import de.mschramm.neverdie.repositories.AttackRepository;
 import de.mschramm.neverdie.repositories.PlayerRepository;
 
@@ -33,7 +32,6 @@ public class InitPlayer implements Listener {
         Bukkit.getPluginManager().callEvent(updatedEvent);
 
         AttackRepository.getInstance().addPlayer(player);
-        QuestManager.getInstance().addQuestDisplay(player);
     }
 
     @EventHandler
