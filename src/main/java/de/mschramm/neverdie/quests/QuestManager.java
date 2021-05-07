@@ -15,6 +15,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import de.mschramm.neverdie.NeverDiePlugin;
 import de.mschramm.neverdie.Utils;
@@ -28,10 +29,15 @@ public class QuestManager implements Listener {
     private LivingEntity bob;
     private Quest quest;
 
+    private JavaPlugin plugin;
+    private BukkitTask timeWarningTask;
+    private BukkitTask endQuestTask;
+    private BukkitTask playerWarningTask;
+
     private QuestManager() {
-        JavaPlugin plugin = NeverDiePlugin.getPlugin(NeverDiePlugin.class);
-        Bukkit.getServer().getPluginManager().registerEvents(new BeaconProtection(), plugin);
-        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+        this.plugin = NeverDiePlugin.getPlugin(NeverDiePlugin.class);
+        Bukkit.getServer().getPluginManager().registerEvents(new BeaconProtection(), this.plugin);
+        Bukkit.getServer().getPluginManager().registerEvents(this, this.plugin);
     }
 
     public static QuestManager getInstance() {
@@ -76,6 +82,18 @@ public class QuestManager implements Listener {
         ItemStack input = this.quest.getInput();
         String inputDescription = input.getAmount() + "x " + input.getType();
 
+        this.timeWarningTask = Bukkit.getScheduler().runTaskLater(
+            this.plugin,
+            this::printTimeWarning,
+            40 * 60 * 20
+        );
+
+        this.endQuestTask = Bukkit.getScheduler().runTaskLater(
+            this.plugin,
+            this::endQuest,
+            45 * 60 * 20
+        );
+
         Utils.broadcast(ChatColor.GOLD + "Ich habe eine neue Quest fuer euch: Bringt mir " + inputDescription + " und ich gebe euch " + this.quest.getRewardName() + "!");
     }
 
@@ -86,6 +104,11 @@ public class QuestManager implements Listener {
     }
 
     public void addQuestDisplay(Player player) {
+        if (quest == null) {
+            player.setPlayerListHeader(null);
+            return;
+        }
+
         ItemStack input = this.quest.getInput();
         String inputDescription = input.getAmount() + "x " + input.getType();
 
@@ -109,12 +132,22 @@ public class QuestManager implements Listener {
     }
 
     public void endQuest() {
+        this.timeWarningTask.cancel();
+        this.endQuestTask.cancel();
+        this.playerWarningTask.cancel();
+
         Location[] base = this.getBaseLocations();
         for (Location location : base) {
             location.getBlock().setType(Material.AIR);
         }
         this.questLocation.getBlock().setType(Material.AIR);
         this.bob.remove();
+        this.quest = null;
+        this.updateQuestDisplay();
+
+        Utils.broadcast(ChatColor.GOLD + "Zeit abgelaufen! Ich ziehe davon, aber wir werden uns wiedersehen!");
+
+        Bukkit.getScheduler().runTaskLater(this.plugin, this::setupQuest, 5 * 60 * 20);
     }
 
     private int getHighestBlock() {
@@ -170,8 +203,25 @@ public class QuestManager implements Listener {
                 stack.setAmount(stack.getAmount() - input.getAmount());
                 event.getPlayer().getInventory().addItem(this.quest.getReward());
                 this.quest.completed(event.getPlayer());
+
+                Utils.broadcast(ChatColor.GOLD + "Jemand hat die Quest erfuellt. Ihr habt noch 5 Minuten, um sie ebenfalls abzugeben!");
+
+                this.timeWarningTask.cancel();
+                this.endQuestTask.cancel();
+
+                this.playerWarningTask = Bukkit.getScheduler().runTaskLater(
+                    this.plugin,
+                    this::endQuest,
+                    5 * 60 * 20
+                );
             }
             event.setCancelled(true);
+        }
+    }
+
+    public void printTimeWarning() {
+        if (this.quest.getPlayerCount() == 0) {
+            Utils.broadcast(ChatColor.GOLD + "Gefaellt euch meine Quest nicht? Ich gebe euch noch 5 Minuten bevor ich einpacke!");
         }
     }
 
