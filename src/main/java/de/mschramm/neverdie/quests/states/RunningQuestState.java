@@ -2,6 +2,8 @@ package de.mschramm.neverdie.quests.states;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
+import org.bukkit.SoundCategory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -36,6 +38,8 @@ public class RunningQuestState extends QuestState {
             this.quest.getRewardName()
         ));
         this.updateAllTabDisplays();
+
+        Utils.playSound(Sound.BLOCK_BELL_USE, SoundCategory.MASTER, 0.6f, 1.2f);
 
         this.beacon = BeaconConstruct.generateBeacon();
         this.questCompletionListener = new QuestCompletionListener(this.quest, this.beacon);

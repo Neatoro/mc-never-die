@@ -18,7 +18,7 @@ public class NoQuestState extends QuestState {
                 Quest quest = Quest.generateQuest();
                 this.updateQuestState(new RunningQuestState(quest));
             },
-            1 * 60 * 20
+            10 * 20
         );
     }
 
