@@ -48,7 +48,7 @@ public class RunningQuestState extends QuestState {
         this.timerWarningTask = Bukkit.getScheduler().runTaskLater(
             NeverDiePlugin.getPlugin(),
             () -> this.updateQuestState(new WarningTimeState(this.beacon, this.questCompletionListener)),
-            2 * 60 * 20
+            40 * 60 * 20
         );
     }
 

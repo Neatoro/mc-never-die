@@ -29,7 +29,7 @@ public class WarningTimeState extends QuestState {
             () -> {
                 this.updateQuestState(new ExitState(this.beacon, this.listener));
             },
-            1 * 60 * 20
+            5 * 60 * 20
         );
     }
 

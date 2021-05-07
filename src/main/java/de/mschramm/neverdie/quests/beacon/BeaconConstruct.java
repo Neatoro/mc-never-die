@@ -83,8 +83,8 @@ public class BeaconConstruct {
         int z = random.nextInt(maxZ - minZ) + minZ;
         double y = world.getHighestBlockYAt(x, z);
 
-        //Location beaconLocation = new Location(world, x, y + 2, z);
-        return new Location(world, 300, 100, 300);
+        Location beaconLocation = new Location(world, x, y + 2, z);
+        return beaconLocation;
     }
 
     private Location[] getGeneratedBaseLocations() {

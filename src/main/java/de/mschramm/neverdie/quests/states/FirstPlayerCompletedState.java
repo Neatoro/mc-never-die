@@ -29,7 +29,7 @@ public class FirstPlayerCompletedState extends QuestState {
             () -> {
                 this.updateQuestState(new ExitState(this.beacon, this.questCompletionListener));
             },
-            1 * 60 * 20
+            5 * 60 * 20
         );
     }
 

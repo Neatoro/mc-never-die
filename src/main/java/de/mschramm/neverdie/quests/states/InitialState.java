@@ -21,7 +21,7 @@ public class InitialState extends QuestState {
                 Quest quest = Quest.generateQuest();
                 this.updateQuestState(new RunningQuestState(quest));
             },
-            2 * 60 * 20
+            25 * 60 * 20
         );
     }
 
