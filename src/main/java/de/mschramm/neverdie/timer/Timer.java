@@ -12,7 +12,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import de.mschramm.neverdie.NeverDiePlugin;
 import de.mschramm.neverdie.Utils;
 import de.mschramm.neverdie.quests.QuestManager;
-import jdk.jshell.execution.Util;
 
 public class Timer extends Thread {
 

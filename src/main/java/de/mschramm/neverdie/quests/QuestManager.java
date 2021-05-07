@@ -113,7 +113,7 @@ public class QuestManager implements Listener {
         String inputDescription = input.getAmount() + "x " + input.getType();
 
         String questInfo = String.format(
-            "Location: (%d, %d, %d)\nWill: %s\nHabe: %s",
+            "Will: %s\nHabe: %s",
             (int) this.questLocation.getX(),
             (int) this.questLocation.getY(),
             (int) this.questLocation.getZ(),
