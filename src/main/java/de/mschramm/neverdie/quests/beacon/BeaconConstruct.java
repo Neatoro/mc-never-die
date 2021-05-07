@@ -34,7 +34,7 @@ public class BeaconConstruct {
         Bukkit.getServer().getPluginManager().registerEvents(this.protector, NeverDiePlugin.getPlugin());
 
         this.merchant = (Villager) this.beacon.getWorld().spawnEntity(
-            this.beacon.clone().add(1, 0, 0),
+            this.beacon.clone().add(0, 0, 1),
             EntityType.VILLAGER
         );
         this.merchant.setCustomName("Herbert");
