@@ -10,3 +10,9 @@ commands:
   startneverdie:
     description: Start the Never Die Game
     usage: /<command>
+    permission: neverdie.start
+
+permissions:
+  neverdie.start:
+    description: Permission to start the neverdie modus
+    default: op
