@@ -18,7 +18,12 @@ public class Deaths implements Listener {
             Player player = (Player) event.getEntity();
             LifeRepository repository = LifeRepository.getInstance();
             repository.reduceLifeFromPlayer(player);
-            Utils.playSound(Sound.ENTITY_ELDER_GUARDIAN_CURSE, SoundCategory.MASTER, 0.4f, 1.1f);
+            int lifes = repository.getLifesForPlayer(player);
+            if (lifes == 0) {
+                Utils.playSound(Sound.ENTITY_WOLF_HOWL, SoundCategory.MASTER, 0.5f, 0.9f);
+            } else {
+                Utils.playSound(Sound.ENTITY_ELDER_GUARDIAN_CURSE, SoundCategory.MASTER, 0.4f, 1.1f);
+            }
         }
     }
 
