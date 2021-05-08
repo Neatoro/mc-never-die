@@ -11,6 +11,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import de.mschramm.neverdie.NeverDiePlugin;
+import de.mschramm.neverdie.events.PlayerRespawnListener;
 import de.mschramm.neverdie.quests.QuestManager;
 import de.mschramm.neverdie.repositories.LifeRepository;
 import de.mschramm.neverdie.timer.Timer;
@@ -25,7 +27,6 @@ public class StartCommand implements CommandExecutor {
 
         Location spawn = new Location(world, 0, world.getHighestBlockYAt(0, 0), 0);
         world.setSpawnLocation(spawn);
-
         border.setSize(700);
         border.setCenter(spawn);
 
@@ -35,12 +36,14 @@ public class StartCommand implements CommandExecutor {
             player.setFoodLevel(20);
             player.setSaturation(20);
             player.getInventory().clear();
+
             LifeRepository.getInstance().resetPlayerLifes(player);
 
             player.teleport(spawn);
         }
 
         Bukkit.getServer().dispatchCommand(sender, "spreadplayers 0 0 200 300 false @a");
+        Bukkit.getPluginManager().registerEvents(new PlayerRespawnListener(), NeverDiePlugin.getPlugin());
 
         Timer timer = new Timer();
         timer.start();

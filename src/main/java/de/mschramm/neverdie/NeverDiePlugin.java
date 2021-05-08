@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
+import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,6 +16,7 @@ import de.mschramm.neverdie.events.Damage;
 import de.mschramm.neverdie.events.Deaths;
 import de.mschramm.neverdie.events.Displays;
 import de.mschramm.neverdie.events.InitPlayer;
+import de.mschramm.neverdie.events.PlayerRespawnListener;
 import de.mschramm.neverdie.events.Spectator;
 import de.mschramm.neverdie.quests.QuestManager;
 import de.mschramm.neverdie.quests.states.NoQuestState;
@@ -30,6 +32,7 @@ public class NeverDiePlugin extends JavaPlugin {
             QuestManager.getInstance()
                 .getState()
                 .updateQuestState(new NoQuestState());
+            Bukkit.getPluginManager().registerEvents(new PlayerRespawnListener(), NeverDiePlugin.getPlugin());
         }
 
         try {
