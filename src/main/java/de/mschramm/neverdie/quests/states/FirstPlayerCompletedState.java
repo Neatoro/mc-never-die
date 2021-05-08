@@ -38,4 +38,9 @@ public class FirstPlayerCompletedState extends QuestState {
         this.exitTask.cancel();
     }
 
+    @Override
+    public void cleanUp() {
+        this.beacon.destroyBeacon();
+    }
+
 }

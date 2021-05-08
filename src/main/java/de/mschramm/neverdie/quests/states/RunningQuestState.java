@@ -1,7 +1,10 @@
 package de.mschramm.neverdie.quests.states;
 
+import java.util.logging.Level;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.inventory.ItemStack;
@@ -45,6 +48,19 @@ public class RunningQuestState extends QuestState {
         this.questCompletionListener = new QuestCompletionListener(this.quest, this.beacon);
         Bukkit.getServer().getPluginManager().registerEvents(this.questCompletionListener, NeverDiePlugin.getPlugin());
 
+        Location beaconLocation = this.beacon.getBeaconLocation();
+        NeverDiePlugin.getPlugin()
+            .getLogger()
+            .log(
+                Level.INFO,
+                String.format(
+                    "New Merchant Spawned at (%f, %f, %f)",
+                    beaconLocation.getX(),
+                    beaconLocation.getY(),
+                    beaconLocation.getZ()
+                )
+            );
+
         this.timerWarningTask = Bukkit.getScheduler().runTaskLater(
             NeverDiePlugin.getPlugin(),
             () -> this.updateQuestState(new WarningTimeState(this.beacon, this.questCompletionListener)),
@@ -57,4 +73,8 @@ public class RunningQuestState extends QuestState {
         this.timerWarningTask.cancel();
     }
 
+    @Override
+    public void cleanUp() {
+        this.beacon.destroyBeacon();
+    }
 }

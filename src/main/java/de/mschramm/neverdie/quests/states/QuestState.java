@@ -34,4 +34,6 @@ public abstract class QuestState {
     public void updateTabDisplay(Player player) {
         player.setPlayerListHeader(this.tabContent);
     }
+
+    public void cleanUp() {}
 }

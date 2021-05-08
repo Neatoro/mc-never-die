@@ -32,4 +32,9 @@ public class ExitState extends QuestState {
     public void onLeave() {
     }
 
+    @Override
+    public void cleanUp() {
+        this.beacon.destroyBeacon();
+    }
+
 }

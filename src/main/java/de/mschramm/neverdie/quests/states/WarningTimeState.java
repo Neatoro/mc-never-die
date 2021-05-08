@@ -38,4 +38,8 @@ public class WarningTimeState extends QuestState {
         this.exitTask.cancel();
     }
 
+    @Override
+    public void cleanUp() {
+        this.beacon.destroyBeacon();
+    }
 }

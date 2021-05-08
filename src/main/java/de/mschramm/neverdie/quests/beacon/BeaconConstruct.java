@@ -133,4 +133,8 @@ public class BeaconConstruct {
     public Villager getMerchant() {
         return this.merchant;
     }
+
+    public Location getBeaconLocation() {
+        return this.beacon;
+    }
 }

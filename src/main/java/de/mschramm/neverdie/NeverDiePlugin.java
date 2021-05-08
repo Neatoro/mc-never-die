@@ -46,6 +46,11 @@ public class NeverDiePlugin extends JavaPlugin {
         }
     }
 
+    @Override
+    public void onDisable() {
+        QuestManager.getInstance().getState().cleanUp();
+    }
+
     private void registerCommands() {
         this.getCommand("lifes").setExecutor(new LifeCommand());
         this.getCommand("startneverdie").setExecutor(new StartCommand());
