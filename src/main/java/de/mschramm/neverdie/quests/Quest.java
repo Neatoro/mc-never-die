@@ -10,6 +10,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import de.mschramm.neverdie.Utils;
+
 public class Quest {
 
     private static class QuestReward {
@@ -19,7 +21,11 @@ public class Quest {
         public String name;
 
         public QuestReward(ItemStack[] reward, Value value) {
-            this(reward, value, reward[0].getType().toString());
+            this(
+                reward,
+                value,
+                String.format("%dx %s", reward[0].getAmount(), Utils.getFormattedItemName(reward[0]))
+            );
         }
 
         public QuestReward(ItemStack[] reward, Value value, String name) {

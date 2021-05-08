@@ -32,7 +32,7 @@ public class RunningQuestState extends QuestState {
     @Override
     public void onEnter() {
         ItemStack input = this.quest.getInput();
-        String inputDescription = input.getAmount() + "x " + input.getType();
+        String inputDescription = input.getAmount() + "x " + Utils.getFormattedItemName(input);
 
         Utils.broadcast(ChatColor.GOLD + "Ich habe eine neue Quest f\u00FCr euch: Bringt mir " + inputDescription + " und ich gebe euch " + this.quest.getRewardName() + "!");
         this.setTabContent(String.format(
