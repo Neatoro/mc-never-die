@@ -9,7 +9,7 @@ commands:
     usage: /<command>
   startneverdie:
     description: Start the Never Die Game
-    usage: /<command>
+    usage: /<command> <seed> <spawnX> <spawnZ>
     permission: neverdie.start
 
 permissions:

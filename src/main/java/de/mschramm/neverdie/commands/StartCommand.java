@@ -19,13 +19,55 @@ import de.mschramm.neverdie.timer.Timer;
 
 public class StartCommand implements CommandExecutor {
 
+    private static class StartCommandArguments {
+
+        public double spawnX;
+        public double spawnZ;
+        public long seed;
+
+        private StartCommandArguments(double spawnX, double spawnZ, long seed) {
+            this.spawnX = spawnX;
+            this.spawnZ = spawnZ;
+            this.seed = seed;
+        }
+
+        public static StartCommandArguments parse(String[] args) {
+            if (args.length == 3) {
+                try {
+                    Long seed = Long.parseLong(args[0]);
+                    double x = Double.parseDouble(args[1]);
+                    double z = Double.parseDouble(args[2]);
+
+                    return new StartCommandArguments(
+                        x,
+                        z,
+                        seed
+                    );
+                } catch (NumberFormatException exception) {
+                    return null;
+                }
+            }
+
+            return null;
+        }
+
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        StartCommandArguments arguments = StartCommandArguments.parse(args);
+        if (arguments == null) {
+            return false;
+        }
+
         WorldCreator worldCreator = new WorldCreator("game");
+        worldCreator.seed(arguments.seed);
         World world = worldCreator.createWorld();
         WorldBorder border = world.getWorldBorder();
 
-        Location spawn = new Location(world, 0, world.getHighestBlockYAt(0, 0), 0);
+        double x = arguments.spawnX;
+        double z = arguments.spawnZ;
+        Location spawn = new Location(world, x, world.getHighestBlockYAt((int) x, (int) z), z);
         world.setSpawnLocation(spawn);
         border.setSize(700);
         border.setCenter(spawn);
