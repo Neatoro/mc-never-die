@@ -84,7 +84,7 @@ public class StartCommand implements CommandExecutor {
             player.teleport(spawn);
         }
 
-        Bukkit.getServer().dispatchCommand(sender, "spreadplayers 0 0 200 300 false @a");
+        Bukkit.getServer().dispatchCommand(sender, String.format("spreadplayers %f %f 200 300 false @a", x, z));
         Bukkit.getPluginManager().registerEvents(new PlayerRespawnListener(), NeverDiePlugin.getPlugin());
 
         Timer timer = new Timer();
