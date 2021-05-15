@@ -88,10 +88,6 @@ public class Quest {
                 Value.COMMON
             ),
             new QuestReward(
-                new ItemStack[] { new ItemStack(Material.ACACIA_SAPLING, 2) },
-                Value.COMMON
-            ),
-            new QuestReward(
                 new ItemStack[] { new ItemStack(Material.BLAZE_ROD, 1) },
                 Value.UNCOMMON
             ),
