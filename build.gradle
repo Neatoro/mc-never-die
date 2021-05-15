@@ -25,17 +25,22 @@ artifacts {
 
 repositories {
     mavenCentral()
-    maven { url 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+    maven { url "https://papermc.io/repo/repository/maven-public/" }
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT'
+    compileOnly "com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT"
     implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.34.0'
 }
 
 tasks.register('copyJarToPlugins', Copy) {
     from fatJar
     into './serverdata/plugins'
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
 }
 
 build.dependsOn copyJarToPlugins

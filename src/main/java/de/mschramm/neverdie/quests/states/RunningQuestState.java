@@ -15,6 +15,7 @@ import de.mschramm.neverdie.Utils;
 import de.mschramm.neverdie.quests.Quest;
 import de.mschramm.neverdie.quests.beacon.BeaconConstruct;
 import de.mschramm.neverdie.quests.events.QuestCompletionListener;
+import net.kyori.adventure.text.Component;
 
 public class RunningQuestState extends QuestState {
 
@@ -35,11 +36,11 @@ public class RunningQuestState extends QuestState {
         String inputDescription = input.getAmount() + "x " + Utils.getFormattedItemName(input);
 
         Utils.broadcast(ChatColor.GOLD + "Ich habe eine neue Quest f\u00FCr euch: Bringt mir " + inputDescription + " und ich gebe euch " + this.quest.getRewardName() + "!");
-        this.setTabContent(String.format(
-            "Will: %s\nHabe: %s",
-            inputDescription,
-            this.quest.getRewardName()
-        ));
+
+        Component want = Component.text("Will: " + inputDescription);
+        Component has = Component.text("Habe: " + this.quest.getRewardName());
+        this.setTabContent(Component.join(Component.newline(), want, has));
+
         this.updateAllTabDisplays();
 
         Utils.playSound(Sound.BLOCK_BELL_USE, SoundCategory.MASTER, 0.6f, 1.2f);

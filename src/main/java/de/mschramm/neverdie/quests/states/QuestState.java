@@ -4,10 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import de.mschramm.neverdie.quests.QuestManager;
+import net.kyori.adventure.text.Component;
 
 public abstract class QuestState {
 
-    private String tabContent;
+    private Component tabContent;
 
     public abstract void onEnter();
 
@@ -21,7 +22,7 @@ public abstract class QuestState {
         newState.onEnter();
     }
 
-    protected void setTabContent(String tabContent) {
+    protected void setTabContent(Component tabContent) {
         this.tabContent = tabContent;
     }
 
@@ -32,7 +33,7 @@ public abstract class QuestState {
     }
 
     public void updateTabDisplay(Player player) {
-        player.setPlayerListHeader(this.tabContent);
+        player.sendPlayerListHeader(this.tabContent);
     }
 
     public void cleanUp() {}
