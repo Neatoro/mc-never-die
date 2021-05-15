@@ -98,7 +98,7 @@ public class Quest {
                     new ItemStack(Material.NETHER_WART, 8)
                 },
                 Value.RARE,
-                "BREWING_KIT"
+                "Brewing Kit"
             )
         },
         Rarity.UNCOMMON, new QuestReward[] {
@@ -135,7 +135,7 @@ public class Quest {
                     new ItemStack(Material.OBSIDIAN, 8)
                 },
                 Value.RARE,
-                "END_KIT"
+                "End Kit"
             ),
             new QuestReward(
                 new ItemStack[] { new ItemStack(Material.TRIDENT, 1) },
