@@ -1,6 +1,7 @@
 package de.mschramm.neverdie.events;
 
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,6 +30,7 @@ public class InitPlayer implements Listener {
 
         PlayerEntity entity = playerRepository.getPlayerEntity(player);
         PlayerLifesUpdatedEvent updatedEvent = new PlayerLifesUpdatedEvent(player, entity);
+        player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(entity.getHealth());
         Bukkit.getPluginManager().callEvent(updatedEvent);
 
         AttackRepository.getInstance().addPlayer(player);

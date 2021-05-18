@@ -10,7 +10,7 @@ public class SchemaProvider {
         Connection connection = Connector.getInstance().getConnection();
 
         PreparedStatement statement = connection.prepareStatement(
-            "CREATE TABLE IF NOT EXISTS players (id VARCHAR(255) PRIMARY KEY, lifes INT)"
+            "CREATE TABLE IF NOT EXISTS players (id VARCHAR(255) PRIMARY KEY, lifes INT, health INT)"
         );
 
         statement.execute();

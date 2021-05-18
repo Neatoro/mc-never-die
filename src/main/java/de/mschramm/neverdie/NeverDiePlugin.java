@@ -9,6 +9,7 @@ import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import de.mschramm.neverdie.commands.CollectivePunishmentCommand;
 import de.mschramm.neverdie.commands.LifeCommand;
 import de.mschramm.neverdie.commands.StartCommand;
 import de.mschramm.neverdie.database.SchemaProvider;
@@ -57,6 +58,7 @@ public class NeverDiePlugin extends JavaPlugin {
     private void registerCommands() {
         this.getCommand("lifes").setExecutor(new LifeCommand());
         this.getCommand("startneverdie").setExecutor(new StartCommand());
+        this.getCommand("collectivepunishment").setExecutor(new CollectivePunishmentCommand());
     }
 
     private void registerEventHandlers() {

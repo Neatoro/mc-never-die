@@ -9,6 +9,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 
 import de.mschramm.neverdie.Utils;
 import de.mschramm.neverdie.repositories.LifeRepository;
+import de.mschramm.neverdie.repositories.PlayerRepository;
 
 public class Deaths implements Listener {
 
@@ -16,9 +17,13 @@ public class Deaths implements Listener {
     public void onPlayerDeaths(EntityDeathEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            LifeRepository repository = LifeRepository.getInstance();
-            repository.reduceLifeFromPlayer(player);
-            int lifes = repository.getLifesForPlayer(player);
+            LifeRepository lifeRepository = LifeRepository.getInstance();
+            PlayerRepository playerRepository = PlayerRepository.getInstance();
+
+            playerRepository.addHealth(player);
+            lifeRepository.reduceLifeFromPlayer(player);
+
+            int lifes = lifeRepository.getLifesForPlayer(player);
             if (lifes == 0) {
                 Utils.playSound(Sound.ENTITY_WOLF_HOWL, SoundCategory.MASTER, 0.5f, 0.9f);
             } else {

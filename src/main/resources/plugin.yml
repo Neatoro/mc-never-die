@@ -11,6 +11,10 @@ commands:
     description: Start the Never Die Game
     usage: /<command> <seed> <spawnX> <spawnZ>
     permission: neverdie.start
+  collectivepunishment:
+    description: Reduce amount of lifes
+    usage: /<command>
+    permission: neverdie.start
 
 permissions:
   neverdie.start:
