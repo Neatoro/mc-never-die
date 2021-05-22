@@ -25,6 +25,7 @@ public class ExitState extends QuestState {
         HandlerList.unregisterAll(this.questCompletionListener);
         this.updateQuestState(new NoQuestState());
 
+        this.setTabContent(null);
         this.updateAllTabDisplays();
     }
 
